@@ -49,3 +49,24 @@ function MPOWA:InInstance()
 	end
 	self.instance = false
 end
+
+function MPOWA:OnPlayerCastStart()
+    local spell = UnitCastingInfo("player")
+    if not spell then return end
+
+    for id, cfg in self.SAVE do
+        if cfg.casting and cfg.buffname == spell then
+            self.active[id] = true
+            self.frames[id][1]:Show()
+        end
+    end
+end
+
+function MPOWA:OnPlayerCastStop()
+    for id, cfg in self.SAVE do
+        if cfg.casting then
+            self.active[id] = false
+            self.frames[id][1]:Hide()
+        end
+    end
+end

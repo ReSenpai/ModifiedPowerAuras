@@ -14,6 +14,7 @@ function MPOWA:CreateSave(i)
 		used = false,
 		test = false,
 		cooldown = false,
+		casting = false,
 		enemytarget = false,
 		friendlytarget = false,
 		stacks = ">=0",
@@ -330,3 +331,5 @@ MPOWA:RegisterEvent("UNIT_MANA")
 MPOWA:RegisterEvent("UNIT_RAGE")
 MPOWA:RegisterEvent("UNIT_ENERGY")
 MPOWA:RegisterEvent("PLAYER_LOGOUT")
+MPOWA:RegisterEvent("UNIT_SPELLCAST_START")
+MPOWA:RegisterEvent("UNIT_SPELLCAST_STOP")
