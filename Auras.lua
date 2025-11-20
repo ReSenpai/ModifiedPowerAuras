@@ -438,43 +438,49 @@ function MPOWA:Push(aura, unit, i, isdebuff)
 				else
 					tex = UnitBuff(unit, i)
 				end
-				tex = strlower(strsub(tex, strfind(tex, "Icons")+6))
+
+                if tex then -- sometimes tex is nil
+                    tex = strlower(strsub(tex, strfind(tex, "Icons")+6))
+                end
 			end
-			BuffExist[val] = true -- May cause issues elsewhere :/
-			if path["isdebuff"]==isdebuff and ((path["secondspecifier"] and (strlower(path["secondspecifiertext"])==tex)) or not path["secondspecifier"]) then
-				local p1, p2 = self:TernaryReturn(val, "inparty", self:InParty()), self:TernaryReturn(val, "inraid", UnitInRaid("player"))
-				if self:TernaryReturn(val, "alive", self:Reverse(UnitIsDeadOrGhost("player"))) and self:TernaryReturn(val, "mounted", self.mounted) 
-					and self:TernaryReturn(val, "incombat", UnitAffectingCombat("player")) 
-					and (((p1 or p2) and ((path["inparty"]==0 or path["inparty"]==true) and (path["inraid"]==0 or path["inraid"]==true))) or (p1 and p2))
-					and self:TernaryReturn(val, "inbattleground", self.bg) 
-					and self:TernaryReturn(val, "inraidinstance", self.instance) and not path["cooldown"] 
-					and (self:IsStacks(GetComboPoints("player", "target"), val, "cpstacks") or (path["buffname"] == "unitpower" and path["inverse"])) then
-					if path["enemytarget"] and unit == "target" then
-						self.active[val] = i
-					elseif path["friendlytarget"] and unit == "target" then
-						self.active[val] = i
-					elseif path["raidgroupmember"] then -- have to check those vars
-						self.active[val] = i
-					elseif not path["enemytarget"] and not path["friendlytarget"] and not path["raidgroupmember"] and unit == "player" then
-						self.active[val] = i
-					end
-					if self.pushed[val] and aura ~= "unitpower" then
-						self.pushed[val] = self.pushed[val] + 1;
-					else
-						self.pushed[val] = 1;
-					end
-					if self.active[val] and not bypass then
-						if tnbr(self.frames[val][1]:GetAlpha())<=0.1 then
-							self.frames[val][1]:SetAlpha(tnbr(path["alpha"]))
-						end
-						self.activeTimer[val] = GT()
-						self:FShow(val)
-						if path["timer"] then
-							self.frames[val][3]:Show()
-						end
-					end
-				end
-			end
+
+            if tex then
+                BuffExist[val] = true -- May cause issues elsewhere :/
+                if path["isdebuff"]==isdebuff and ((path["secondspecifier"] and (strlower(path["secondspecifiertext"])==tex)) or not path["secondspecifier"]) then
+                    local p1, p2 = self:TernaryReturn(val, "inparty", self:InParty()), self:TernaryReturn(val, "inraid", UnitInRaid("player"))
+                    if self:TernaryReturn(val, "alive", self:Reverse(UnitIsDeadOrGhost("player"))) and self:TernaryReturn(val, "mounted", self.mounted)
+                            and self:TernaryReturn(val, "incombat", UnitAffectingCombat("player"))
+                            and (((p1 or p2) and ((path["inparty"]==0 or path["inparty"]==true) and (path["inraid"]==0 or path["inraid"]==true))) or (p1 and p2))
+                            and self:TernaryReturn(val, "inbattleground", self.bg)
+                            and self:TernaryReturn(val, "inraidinstance", self.instance) and not path["cooldown"]
+                            and (self:IsStacks(GetComboPoints("player", "target"), val, "cpstacks") or (path["buffname"] == "unitpower" and path["inverse"])) then
+                        if path["enemytarget"] and unit == "target" then
+                            self.active[val] = i
+                        elseif path["friendlytarget"] and unit == "target" then
+                            self.active[val] = i
+                        elseif path["raidgroupmember"] then -- have to check those vars
+                            self.active[val] = i
+                        elseif not path["enemytarget"] and not path["friendlytarget"] and not path["raidgroupmember"] and unit == "player" then
+                            self.active[val] = i
+                        end
+                        if self.pushed[val] and aura ~= "unitpower" then
+                            self.pushed[val] = self.pushed[val] + 1;
+                        else
+                            self.pushed[val] = 1;
+                        end
+                        if self.active[val] and not bypass then
+                            if tnbr(self.frames[val][1]:GetAlpha())<=0.1 then
+                                self.frames[val][1]:SetAlpha(tnbr(path["alpha"]))
+                            end
+                            self.activeTimer[val] = GT()
+                            self:FShow(val)
+                            if path["timer"] then
+                                self.frames[val][3]:Show()
+                            end
+                        end
+                    end
+                end    
+            end			
 		end
 	end
 end
