@@ -54,6 +54,8 @@ if (GetLocale() == "deDE") then
 	MPOWA_CHECKBUTTON_TIMER_TOOLTIP = "Kreuze das an, um den Timer zu aktivieren."
 	MPOWA_CHECKBUTTON_SHOWCOOLDOWN = "Wenn Cooldown"
 	MPOWA_CHECKBUTTON_SHOWCOOLDOWN_TOOLTIP = "Kreuze das an, um die Aura zu zeigen, wenn die Fähigkeit auf cooldown ist."
+	MPOWA_CHECKBUTTON_INCAST = "In Cast"
+	MPOWA_CHECKBUTTON_INCAST_TOOLTIP = "Check this to show the icon if the ability in cast."
 	MPOWA_CHECKBUTTON_ENEMYTARGET = "|cFFFF8080Gegnerisches Ziel|r"
 	MPOWA_CHECKBUTTON_ENEMYTARGET_TOOLTIP = "Kreuze das an, um das gegnerische Ziel zu nutzen, anstatt dir. Notiz: Der Timer wird damit ungenau."
 	MPOWA_CHECKBUTTON_INCOMBAT = "Im Kampf"

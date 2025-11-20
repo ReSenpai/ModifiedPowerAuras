@@ -135,6 +135,12 @@ if MPOWA_SAVE then
 end
 
 function MPOWA:OnEvent(event, arg1)
+	if event == "UNIT_SPELLCAST_START" and arg1 == "player" then
+    	self:OnPlayerCastStart()
+	elseif event == "UNIT_SPELLCAST_STOP" and arg1 == "player" then
+		self:OnPlayerCastStop()
+	end
+
 	if event == "UNIT_AURA" then
 		if arg1 == "target" or self.groupByUnit[arg1] then
 			self:Iterate(arg1)
